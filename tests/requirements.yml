@@ -1,0 +1,3 @@
+---
+- name: java
+  src: https://github.com/viniciusfs/ansible-role-java.git

@@ -1,0 +1,25 @@
+---
+vagrant:
+  platforms:
+    - name: centos-7
+      box: viniciusfs/centos7
+  providers:
+    - name: virtualbox
+      type: virtualbox
+      options:
+        memory: 512
+        cpus: 1
+  instances:
+    - name: node1
+      ansible_groups:
+        - servers
+
+ansible:
+  playbook: tests/playbook.yml
+
+dependency:
+  name: galaxy
+  requirements_file: tests/requirements.yml
+
+verifier:
+  name: testinfra

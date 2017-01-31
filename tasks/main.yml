@@ -1,0 +1,76 @@
+---
+  - name: Create tomcat user group
+    group: >
+      name={{ tomcat_group }}
+      state=present
+
+  - name: Create tomcat user
+    user: >
+      name={{ tomcat_user}}
+      group={{ tomcat_group }}
+      home={{ tomcat_home }}
+      createhome=no
+      state=present
+
+  - name: Download tomcat package
+    get_url: >
+      url={{ tomcat_download_url }}
+      dest={{ tomcat_download_destination }}
+
+  - name: Extract tomcat package
+    unarchive: >
+      src={{ tomcat_download_destination }}
+      dest={{ tomcat_installation_dir }}
+      creates={{ tomcat_installation_dir }}/apache-tomcat-{{ tomcat_version }}
+      copy=no
+
+  - name: Symlink install directory
+    file: >
+      src={{ tomcat_installation_dir }}/apache-tomcat-{{ tomcat_version }}
+      dest={{ tomcat_home }}
+      state=link
+
+  - name: Setup tomcat users to access tomcat manager app
+    template: >
+      src=tomcat-users.xml.tpl
+      dest={{ tomcat_home }}/conf/tomcat-users.xml
+
+  - name: Deploy tomcat server.xml configuration file
+    template: >
+      src=server.xml.tpl
+      dest={{ tomcat_home }}/conf/server.xml
+      owner={{ tomcat_user }}
+      group={{ tomcat_group }}
+      mode=0644
+
+  - name: Install tomcat setenv.sh script
+    template: >
+      src=tomcat-setenv.sh.tpl
+      dest={{ tomcat_home }}/bin/setenv.sh
+      mode=0755
+
+  - name: Install tomcat systemd script
+    template: >
+      src=tomcat.service.tpl
+      dest=/etc/systemd/system/tomcat.service
+      mode=0755
+
+  - name: Deploy tomcat logrotate configuration file
+    template: >
+      src=tomcat-logrotate.conf.tpl
+      dest=/etc/logrotate.d/tomcat
+      mode=0755
+
+  - name: Change ownership of tomcat directory
+    file: >
+      path={{ tomcat_installation_dir }}
+      owner={{ tomcat_user }}
+      group={{ tomcat_group }}
+      recurse=yes
+
+  - name: Start and enable tomcat service
+    systemd: >
+      name=tomcat
+      state=started
+      enabled=yes
+      daemon_reload=yes
