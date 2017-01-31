@@ -30,3 +30,10 @@ def test_tomcat_home(File):
     assert tomcat_home.exists
     assert tomcat_home.is_symlink
     assert tomcat_home.linked_to == '/opt/apache-tomcat-7.0.75'
+
+
+def test_tomcat_started_enabled(Service):
+    tomcat = Service('tomcat')
+
+    assert tomcat.is_started
+    assert tomcat.is_enabled
