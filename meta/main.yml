@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Vinícius Figueiredo
-  description: Installs and configures NTP client in CentOS/RHEL systems.
+  description: Installs and configures Tomcat server in CentOS/RHEL systems.
   license: MIT
 
   platforms:
@@ -14,3 +14,4 @@ galaxy_info:
 
 dependencies:
   - name: viniciusfs.java
+    src: https://github.com/viniciusfs/ansible-role-java
