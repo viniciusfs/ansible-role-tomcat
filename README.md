@@ -1,6 +1,8 @@
 # Tomcat
 
-Role para instalação e configuração básica do Apache Tomcat no ambiente MUXI.
+[![Build Status](https://travis-ci.org/viniciusfs/ansible-role-tomcat.svg?branch=master)](https://travis-ci.org/viniciusfs/ansible-role-tomcat)
+
+Role para instalação e configuração básica do Apache Tomcat.
 
 ## Descrição das variáveis
 
