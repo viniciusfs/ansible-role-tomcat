@@ -13,5 +13,5 @@ galaxy_info:
     - system
 
 dependencies:
-  - name: java
+  - name: viniciusfs.java
     src: https://github.com/viniciusfs/ansible-role-java.git
