@@ -35,5 +35,5 @@ def test_tomcat_home(File):
 def test_tomcat_started_enabled(Service):
     tomcat = Service('tomcat')
 
-    assert tomcat.is_started
+    assert tomcat.is_running
     assert tomcat.is_enabled
