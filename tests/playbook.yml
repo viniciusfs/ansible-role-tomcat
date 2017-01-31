@@ -1,4 +1,4 @@
 ---
 - hosts: all
   roles:
-    - role: tomcat
+    - role: ansible-role-tomcat
