@@ -5,16 +5,19 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 def test_tomcat_group(Group):
-    tomcat_group = Group('tomcat')
+    tomcat = Group('tomcat')
 
-    assert tomcat_group.exists
+    assert tomcat.exists
+    assert tomcat.gid == 215
 
 
 def test_tomcat_user(User):
-    tomcat_user = User('tomcat')
+    tomcat = User('tomcat')
 
-    assert tomcat_user.exists
-    assert tomcat_user.group == 'tomcat'
+    assert tomcat.exists
+    assert tomcat.uid == 215
+    assert tomcat.group == 'tomcat'
+    assert tomcat.home == '/opt/tomcat'
 
 
 def test_tomcat_directory(File):
@@ -37,3 +40,7 @@ def test_tomcat_started_enabled(Service):
 
     assert tomcat.is_running
     assert tomcat.is_enabled
+
+
+def test_tomcat_port(Socket):
+    assert Socket("tcp://0.0.0.0:8080").is_listening

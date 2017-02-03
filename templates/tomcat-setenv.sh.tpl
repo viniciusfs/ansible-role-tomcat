@@ -60,6 +60,10 @@ CATALINA_OPTS="$CATALINA_OPTS
 -XX:-HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=${CATALINA_HOME}/logs/heap-dump-oom-error_${HOST}_${DATE}.hprof"
 
+# Usar IPv4 preferencialmente
+CATALINA_OPTS="$CATALINA_OPTS
+-Djava.net.preferIPv4Stack=true"
+
 # Configuracoes de JMX
 CATALINA_OPTS="$CATALINA_OPTS
 -Dcom.sun.management.jmxremote

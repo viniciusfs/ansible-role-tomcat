@@ -1,6 +1,8 @@
 ---
 tomcat_user: "tomcat"
+tomcat_uid: 215
 tomcat_group: "tomcat"
+tomcat_gid: 215
 tomcat_version_major: "7"
 tomcat_version: "7.0.75"
 tomcat_mirror: "http://ftp.unicamp.br/pub/apache/tomcat"
